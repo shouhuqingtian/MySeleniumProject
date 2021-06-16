@@ -6,7 +6,7 @@ from PIL import Image
 import pytesseract
 
 
-def test01():
+def test01():   # 对标签进行截图
     driver = webdriver.Firefox()
     driver.get('http://www.jpress.io/user/register')
     # driver.get('https://kyfw.12306.cn/otn/resources/login.html')
@@ -19,8 +19,8 @@ def test01():
     driver.save_screenshot(picture_name1)
     ce = driver.find_element_by_id('captchaimg')
     # ce = driver.find_element_by_xpath('//*[@id="J-loginImg"]')
-    left = ce.location['x']
-    top = ce.location['y']
+    left = int(ce.location['x'])
+    top = int(ce.location['y'])
     right = int(ce.size['width']) + left
     height = int(ce.size['height']) + top
     print(left, top, right, height, ce.location, ce.size)
@@ -32,8 +32,10 @@ def test01():
     driver.quit()
 
 
-# def test02():
-#     path = local_doc() + '\screenshots/' + ''
-#     Image.open()
-#     str = pytesseract.image_to_string()
+def test02():   # 对标签进行保存
+    path = local_doc() + '\\screenshots' + '\\' + '2021-06-16-12-51-52.png'
+    print(path)
+    image1 = Image.open(path)
+    str = pytesseract.image_to_string(image1)
+    print(str)
 
