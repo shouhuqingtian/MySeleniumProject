@@ -1,15 +1,17 @@
 # -*- coding:utf-8 -*-
+import time
+from selenium.webdriver.common.action_chains import ActionChains
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
-from util import untis
+from util import utils
 
 
 class TestUserRegister(object):
     def __init__(self):
         self.driver = webdriver.Firefox()
-        self.driver.get('http://www.jpress.io/user/register')
+        self.driver.get('http://159.75.96.188:18080/jpress/user/register')
         self.driver.maximize_window()
 
     # 测试登录验证码错误
@@ -28,31 +30,49 @@ class TestUserRegister(object):
         self.driver.find_element_by_name('confirmPwd').send_keys(confirmPwd)
 
         self.driver.find_element_by_name('captcha').send_keys(captcha)
-        self.driver.find_element_by_class_name('btn').click()
+        # self.driver.find_element_by_css_selector('div.custom-control-label>a').text
+        # self.driver.find_element_by_partial_link_text("我同意").click()
+        # self.driver.execute_script(
+        #     "window.getComputedStyle(document.querySelector('.SomeTitle .bar'),':before').click")
+
+        self.driver.find_element_by_class_name('btn-primary').click()
 
         WebDriverWait(self.driver, 5).until(EC.alert_is_present())
         alert = self.driver.switch_to.alert
         # python断言
         assert alert.text == expected
         alert.accept()
-
         sleep(3)
 
     def test_register_ok(self):
-        username = util.gen_random_str()
+        username = utils.gen_random_str()
         email = username + '@qq.com'
         pwd = '123456'
-        confimPwd = '123456'
-        expected = '注册成功，点击确定进行登录'
+        confirmPwd = '123456'
+        expected = '注册成功，点击确定进行登录。'
 
         # 输入用户名
+        self.driver.find_element_by_name('username').clear()
         self.driver.find_element_by_name('username').send_keys(username)
         # email
+        self.driver.find_element_by_name('email').clear()
         self.driver.find_element_by_name('email').send_keys(email)
         # 密码
+        self.driver.find_element_by_name('pwd').clear()
         self.driver.find_element_by_name('pwd').send_keys(pwd)
         # 确认密码
-        self.driver.find_element_by_name('confimPwd').send_keys(confimPwd)
+        self.driver.find_element_by_name('confirmPwd').clear()
+        self.driver.find_element_by_name('confirmPwd').send_keys(confirmPwd)
         # 自动识别验证码
-        captcha = util.get_code(self.driver)
+        self.driver.find_element_by_name('captcha').clear()
+        captcha = utils.get_code(self.driver, 'captchaimg')
         self.driver.find_element_by_name('captcha').send_keys(captcha)
+        self.driver.find_element_by_class_name('btn-primary').click()
+        # 等待alert出现
+        WebDriverWait(self.driver, 5).until(EC.alert_is_present())
+        alert = self.driver.switch_to.alert
+        print(alert.text)
+
+        # 验证
+        assert alert.text == expected
+        alert.accept()

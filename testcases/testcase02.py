@@ -1,6 +1,5 @@
 # -*- coding:utf-8 -*-
-import time
-from util.untis import strtime, local_doc
+from util.unti_time import *
 from selenium import webdriver
 from PIL import Image
 import pytesseract
