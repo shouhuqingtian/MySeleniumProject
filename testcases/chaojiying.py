@@ -4,11 +4,12 @@
 import requests
 from hashlib import md5
 
+
 class Chaojiying_Client(object):
 
     def __init__(self, username, password, soft_id):
         self.username = username
-        password =  password.encode('utf8')
+        password = password.encode('utf8')
         self.password = md5(password).hexdigest()
         self.soft_id = soft_id
         self.base_params = {
@@ -31,7 +32,8 @@ class Chaojiying_Client(object):
         }
         params.update(self.base_params)
         files = {'userfile': ('ccc.jpg', im)}
-        r = requests.post('http://upload.chaojiying.net/Upload/Processing.php', data=params, files=files, headers=self.headers)
+        r = requests.post('http://upload.chaojiying.net/Upload/Processing.php', data=params, files=files,
+                          headers=self.headers)
         return r.json()
 
     def ReportError(self, im_id):
@@ -47,7 +49,6 @@ class Chaojiying_Client(object):
 
 
 if __name__ == '__main__':
-	chaojiying = Chaojiying_Client('超级鹰用户名', '超级鹰用户名的密码', '96001')	#用户中心>>软件ID 生成一个替换 96001
-	im = open('a.jpg', 'rb').read()													#本地图片文件路径 来替换 a.jpg 有时WIN系统须要//
-	print chaojiying.PostPic(im, 1902)												#1902 验证码类型  官方网站>>价格体系 3.4+版 print 后要加()
-
+    chaojiying = Chaojiying_Client('shouhuqingtian', '13691959110', '96001')  # 用户中心>>软件ID 生成一个替换 96001
+    im = open(r'E:\MySeleniumProject\screenshots\a.jpg', 'rb').read()  # 本地图片文件路径 来替换 a.jpg 有时WIN系统须要//
+    print(chaojiying.PostPic(im, 1902))  # 1902 验证码类型  官方网站>>价格体系 3.4+版 print 后要加()
