@@ -11,10 +11,9 @@ from util.chaojiying import Chaojiying_Client
 def get_code(driver, id):  # 获取验证码照片
     # 保存截图
     picture_name1 = local_doc() + '\screenshots/' + str(strtime()) + '.png'
-
     driver.save_screenshot(picture_name1)
     ce = driver.find_element_by_id(id)
-    k = 1.25
+    k = 1
     left = int(ce.location['x']*k)
     top = int(ce.location['y']*k)
     right = int(ce.size['width']*k) + left

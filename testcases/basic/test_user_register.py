@@ -13,6 +13,7 @@ class TestUserRegister(object):
         self.driver = webdriver.Firefox()
         self.driver.get('http://159.75.96.188:18080/jpress/user/register')
         self.driver.maximize_window()
+        time.sleep(1)
 
     # 测试登录验证码错误
     def test_register_code_error(self):

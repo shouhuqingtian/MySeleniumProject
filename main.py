@@ -2,6 +2,7 @@
 from testcases.basic.test_user_register import TestUserRegister
 from testcases.basic.test_user_login import TestUserLogin
 from testcases.basic.test_admin_login import TestAdminLogin
+from testcases.basic.test_category import TestCategory
 
 if __name__ == '__main__':
     # testcase01.test02()
@@ -17,5 +18,9 @@ if __name__ == '__main__':
     # case.test_user_login_username_error()
     # case.test_user_login_ok()
     case = TestAdminLogin()
-    case.test_admin_login_username_error()
+    # case.test_admin_login_username_error()
     case.test_admin_login_ok()
+    result = TestCategory(case)
+    result.test_add_category_error()
+    result.test_add_category_ok()
+

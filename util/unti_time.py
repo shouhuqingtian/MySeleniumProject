@@ -5,7 +5,7 @@ import time
 
 # 定义位置存储
 def local_doc():
-    path = os.path.abspath(os.path.dirname(os.getcwd()))
+    path = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
     return path
 
 
