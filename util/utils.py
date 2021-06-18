@@ -14,10 +14,11 @@ def get_code(driver, id):  # 获取验证码照片
 
     driver.save_screenshot(picture_name1)
     ce = driver.find_element_by_id(id)
-    left = int(ce.location['x'])
-    top = int(ce.location['y'])
-    right = int(ce.size['width']) + left
-    height = int(ce.size['height']) + top
+    k = 1.25
+    left = int(ce.location['x']*k)
+    top = int(ce.location['y']*k)
+    right = int(ce.size['width']*k) + left
+    height = int(ce.size['height']*k) + top
     # 保存验证码图片
     im = Image.open(picture_name1)
     img = im.crop((left, top, right, height))

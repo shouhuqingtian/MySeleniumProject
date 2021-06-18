@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 from testcases.basic.test_user_register import TestUserRegister
 from testcases.basic.test_user_login import TestUserLogin
+from testcases.basic.test_admin_login import TestAdminLogin
 
 if __name__ == '__main__':
     # testcase01.test02()
@@ -12,6 +13,9 @@ if __name__ == '__main__':
     # case = TestUserRegister()
     # case.test_register_code_error()
     # case.test_register_ok()
-    case = TestUserLogin()
-    case.test_user_login_username_error()
-
+    # case = TestUserLogin()
+    # case.test_user_login_username_error()
+    # case.test_user_login_ok()
+    case = TestAdminLogin()
+    case.test_admin_login_username_error()
+    case.test_admin_login_ok()
