@@ -13,7 +13,7 @@ def get_code(driver, id):  # 获取验证码照片
     driver.save_screenshot(picture_name1)
     ce = driver.find_element_by_id(id)
     # 显示器比例分辨率
-    k = 1.5
+    k = driver.execute_script('return window.devicePixelRatio')
     left = int(ce.location['x']*k)
     top = int(ce.location['y']*k)
     right = int(ce.size['width']*k) + left
