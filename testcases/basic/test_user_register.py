@@ -1,6 +1,5 @@
 # -*- coding:utf-8 -*-
 import time
-from selenium.webdriver.common.action_chains import ActionChains
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC

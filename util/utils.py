@@ -1,7 +1,6 @@
 # -*- coding:utf-8 -*-
 import random
 import string
-
 from util.unti_time import strtime, local_doc
 from selenium import webdriver
 from PIL import Image
@@ -13,7 +12,8 @@ def get_code(driver, id):  # 获取验证码照片
     picture_name1 = local_doc() + '\screenshots/' + str(strtime()) + '.png'
     driver.save_screenshot(picture_name1)
     ce = driver.find_element_by_id(id)
-    k = 1
+    # 显示器比例分辨率
+    k = 1.5
     left = int(ce.location['x']*k)
     top = int(ce.location['y']*k)
     right = int(ce.size['width']*k) + left
