@@ -22,7 +22,7 @@ class TestArticle(object):
         # 点击文章
         self.login.driver.find_element_by_xpath('//*[@id="sidebar-menu"]/li[4]/a/span[1]').click()
         # 点击写文章
-        self.login.driver.find_element_by_xpath('/html/body/div/aside/section/ul/li[4]/ul/li[2]/a').click()
+        self.login.driver.find_element_by_link_text('写文章').click()
         # 写标题
         self.login.driver.find_element_by_id('article-title').send_keys(title)
         # 切换iFrame
