@@ -5,15 +5,15 @@ from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from util import utils
-import unittest
+import pytest
 
 
-class TestUserRegister(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        cls.driver = webdriver.Firefox()
-        cls.driver.get('http://159.75.96.188:18080/jpress/user/register')
-        cls.driver.maximize_window()
+class TestUserRegister:
+    # @classmethod
+    def setup_class(self):
+        self.driver = webdriver.Firefox()
+        self.driver.get('http://159.75.96.188:18080/jpress/user/register')
+        self.driver.maximize_window()
         time.sleep(1)
 
     # 测试登录验证码错误
@@ -42,8 +42,8 @@ class TestUserRegister(unittest.TestCase):
         WebDriverWait(self.driver, 5).until(EC.alert_is_present())
         alert = self.driver.switch_to.alert
         # python断言
-        # assert alert.text == expected
-        self.assertEqual(alert.text, expected, '登录验证码断言失败')
+        assert alert.text == expected
+        # self.assertEqual(alert.text, expected, '登录验证码断言失败')
         alert.accept()
         sleep(3)
 
@@ -75,10 +75,10 @@ class TestUserRegister(unittest.TestCase):
         WebDriverWait(self.driver, 5).until(EC.alert_is_present())
         alert = self.driver.switch_to.alert
         # 验证
-        # assert alert.text == expected
-        self.assertEqual(alert.text, expected, '登录断言失败')
+        assert alert.text == expected
+        # self.assertEqual(alert.text, expected, '登录断言失败')
         alert.accept()
 
 
 if __name__ == '__main__':
-    unittest.main
+    pytest.main(['test_user_register.py'])

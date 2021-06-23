@@ -3,15 +3,15 @@ import time
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import unittest
+import pytest
 
 
-class TestUserLogin(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        cls.driver = webdriver.Firefox()
-        cls.driver.get('http://159.75.96.188:18080/jpress/user/login')
-        cls.driver.maximize_window()
+class TestUserLogin:
+    # @classmethod
+    def setup_class(self):
+        self.driver = webdriver.Firefox()
+        self.driver.get('http://159.75.96.188:18080/jpress/user/login')
+        self.driver.maximize_window()
 
     # 测试用户登录，用户名错误
     def test_user_login_username_error(self):
@@ -30,8 +30,8 @@ class TestUserLogin(unittest.TestCase):
         # 等待提示框
         WebDriverWait(self.driver, 5).until(EC.alert_is_present())
         alert = self.driver.switch_to.alert
-        # assert alert.text == expected
-        self.assertEqual(alert.text, expected)
+        assert alert.text == expected
+        # self.assertEqual(alert.text, expected)
         alert.accept()
         time.sleep(3)
 
@@ -53,16 +53,17 @@ class TestUserLogin(unittest.TestCase):
 
         # 等待提示框
         WebDriverWait(self.driver, 5).until(EC.title_is(expected))
-        # assert self.driver.title == expected
-        self.assertEqual(self.driver.title, expected)
+        assert self.driver.title == expected
+        # self.assertEqual(self.driver.title, expected)
 
-    @classmethod
-    def tearDownClass(cls) -> None:
-        cls.driver.quit()
+    # @classmethod
+    def teardown_class(self):
+        self.driver.quit()
 
 
 if __name__ == '__main__':
-    suite = unittest.TestSuite()
-    list = [TestUserLogin('test_user_login_username_error'), TestUserLogin('test_user_login_ok')]
-    suite.addTests(list)
-    unittest.TextTestRunner().run(suite)
+    # suite = unittest.TestSuite()
+    # list = [TestUserLogin('test_user_login_username_error'), TestUserLogin('test_user_login_ok')]
+    # suite.addTests(list)
+    # unittest.TextTestRunner().run(suite)
+    pytest.main(['-sv', 'test_user_login.py'])
