@@ -32,11 +32,6 @@ class TestUserRegister:
         self.driver.find_element_by_name('confirmPwd').send_keys(confirmPwd)
 
         self.driver.find_element_by_name('captcha').send_keys(captcha)
-        # self.driver.find_element_by_css_selector('div.custom-control-label>a').text
-        # self.driver.find_element_by_partial_link_text("我同意").click()
-        # self.driver.execute_script(
-        #     "window.getComputedStyle(document.querySelector('.SomeTitle .bar'),':before').click")
-
         self.driver.find_element_by_class_name('btn-primary').click()
 
         WebDriverWait(self.driver, 5).until(EC.alert_is_present())

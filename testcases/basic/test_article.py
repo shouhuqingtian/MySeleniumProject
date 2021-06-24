@@ -1,16 +1,18 @@
 # -*- coding:utf-8 -*-
 import time
 from time import sleep
+import pytest
 from selenium import webdriver
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
+from testcases.basic.test_admin_login import TestAdminLogin
 
 
-class TestArticle(object):
-    def __init__(self, login):
-        self.login = login
+class TestArticle:
+    def setup_class(self):
+        self.login = TestAdminLogin()
 
     def test_add_ok(self):
         title = 'python入门到精通'
@@ -41,24 +43,25 @@ class TestArticle(object):
         # 退出浏览器
         # self.login.driver.quit()
 
-    def test_delete_one_article_ok(self):
-        # 点击文章
-        self.login.driver.find_element_by_xpath('//*[@id="sidebar-menu"]/li[4]/a/span[1]').click()
-        # 点击文章管理
-        self.login.driver.find_element_by_xpath('/html/body/div/aside/section/ul/li[4]/ul/li[1]/a').click()
-
-        link = self.login.driver.find_element_by_xpath('/html/body/div/div/section[3]/div/div/div/div[2]/table/tbody/tr[2]/td[2]/strong/a')
-        ActionChains(self.login.driver).move_to_element(link).perform()
-        sleep(2)
-
-        # 删除前文章数
-        article_num = len(self.login.driver.find_elements_by_class_name('jp-actiontr'))
-        self.login.driver.find_element_by_class_name('red-action').click()
-
-        # 删除后文章数
-        article_num_last = len(self.login.driver.find_elements_by_class_name('jp-actiontr'))
-        # 判断文章数
-        assert article_num == article_num_last + 1
+    # def test_delete_one_article_ok(self):
+    #     # 点击文章
+    #     self.login.driver.find_element_by_xpath('//*[@id="sidebar-menu"]/li[4]/a/span[1]').click()
+    #     # 点击文章管理
+    #     self.login.driver.find_element_by_xpath('/html/body/div/aside/section/ul/li[4]/ul/li[1]/a').click()
+    #
+    #     link = self.login.driver.find_element_by_xpath(
+    #         '/html/body/div/div/section[3]/div/div/div/div[2]/table/tbody/tr[2]/td[2]/strong/a')
+    #     ActionChains(self.login.driver).move_to_element(link).perform()
+    #     sleep(2)
+    #
+    #     # 删除前文章数
+    #     article_num = len(self.login.driver.find_elements_by_class_name('jp-actiontr'))
+    #     self.login.driver.find_element_by_class_name('red-action').click()
+    #
+    #     # 删除后文章数
+    #     article_num_last = len(self.login.driver.find_elements_by_class_name('jp-actiontr'))
+    #     # 判断文章数
+    #     assert article_num == article_num_last + 1
 
     def test_delete_all_article_ok(self):
         # 点击文章
@@ -72,4 +75,5 @@ class TestArticle(object):
         self.login.driver.switch_to.alert.accept()
 
 
-
+if __name__ == '__main__':
+    pytest.main(['test_article.py'])

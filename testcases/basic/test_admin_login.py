@@ -17,6 +17,7 @@ class TestAdminLogin:
         self.driver.maximize_window()
 
     # 测试后台登录，用户名错误
+    @pytest.mark.skip()
     def test_admin_login_username_error(self):
         # 用户名为空
         username = ''
@@ -44,6 +45,7 @@ class TestAdminLogin:
         time.sleep(3)
 
     # 测试后台登录，账号密码正确
+    @pytest.mark.dependency(name='admin_login')
     def test_admin_login_ok(self):
         username = 'liu'
         pwd = '13691959110'
@@ -70,7 +72,8 @@ class TestAdminLogin:
 
     # @classmethod
     def teardown_class(self):
-        self.driver.quit()
+        # self.driver.quit()
+        pass
 
 
 if __name__ == '__main__':

@@ -1,17 +1,19 @@
 # -*- coding:utf-8 -*-
 import time
-from selenium import webdriver
+import pytest
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from testcases.basic.test_admin_login import TestAdminLogin
 
 
-class TestCategory(object):
-    def __init__(self, login):
-        self.login = login
+class TestCategory:
+    def setup_class(self):
+        self.login = TestAdminLogin()
 
     # 测试文章分类失败，名称为空
+    @pytest.mark.dependency(depends=["admin_login"], scope="module")
     def test_add_category_error(self):
         name = ''
         parent = '科学'
@@ -39,8 +41,9 @@ class TestCategory(object):
         time.sleep(3)
 
     # 测试文章分类成功
+    @pytest.mark.dependency(depends=["admin_login"], scope="module")
     def test_add_category_ok(self):
-        name = 'python'
+        name = '人与自然'
         parent = '顶级'
         slug = 'python'
         expected = None
@@ -65,3 +68,7 @@ class TestCategory(object):
         # WebDriverWait(self.login.driver, 5).until(EC.visibility_of_element_located(loc))
         # msg = self.login.driver.find_element(*loc).text
         assert 1 == 1
+
+
+if __name__ == '__main__':
+    pytest.main(['test_category.py'])
