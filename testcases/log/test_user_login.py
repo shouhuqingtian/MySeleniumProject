@@ -25,18 +25,23 @@ class TestUserLogin:
 
         # 输入用户名
         self.driver.find_element_by_name('user').send_keys(username)
-        # self.logger.debug('输入用户名: %s', username)
+        self.logger.debug('输入用户名: %s', username)
         # 输入密码
         self.driver.find_element_by_name('pwd').send_keys(pwd)
-        # self.logger.debug('输入密码: %s', pwd)
+        self.logger.debug('输入密码: %s', pwd)
         # 点击登录
         self.driver.find_element_by_class_name('btn-primary').click()
+        self.logger.debug('点击登录')
 
         # 等待提示框
         WebDriverWait(self.driver, 5).until(EC.alert_is_present())
         alert = self.driver.switch_to.alert
-        assert alert.text == expected
         # self.assertEqual(alert.text, expected)
+        # 验证
+        try:
+            assert alert.text == expected
+        except AssertionError as ae:
+
         alert.accept()
         time.sleep(3)
 
