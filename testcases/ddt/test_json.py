@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
-import pytest
 import json
+import pytest
 
 
 def test_data():
