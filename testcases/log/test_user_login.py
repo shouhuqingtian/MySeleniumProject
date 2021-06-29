@@ -41,6 +41,7 @@ class TestUserLogin:
         try:
             assert alert.text == expected
         except AssertionError as ae:
+            self.logger.error('报错了', exc_info=1)
 
         alert.accept()
         time.sleep(3)
@@ -52,19 +53,26 @@ class TestUserLogin:
         pwd = '13691959110'
         expected = '用户中心'
 
+
         # 输入用户名
         self.driver.find_element_by_name('user').clear()
         self.driver.find_element_by_name('user').send_keys(username)
+        self.logger.debug('输入用户名: %s', username)
         # 输入密码
         self.driver.find_element_by_name('pwd').clear()
         self.driver.find_element_by_name('pwd').send_keys(pwd)
+        self.logger.debug('输入密码：%s', pwd)
         # 点击登录
         self.driver.find_element_by_class_name('btn-primary').click()
+        self.logger.debug('点击登录：%s')
 
         # 等待提示框
         WebDriverWait(self.driver, 5).until(EC.title_is(expected))
-        assert self.driver.title == expected
+        try:
+            assert self.driver.title == expected + str(1)
         # self.assertEqual(self.driver.title, expected)
+        except AssertionError as ae:
+            self.logger.error('报错了', exc_info=1)
 
     # @classmethod
     def teardown_class(self):

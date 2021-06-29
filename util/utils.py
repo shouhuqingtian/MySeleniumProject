@@ -10,7 +10,7 @@ from util.chaojiying import Chaojiying_Client
 
 def get_code(driver, id):  # 获取验证码照片
     # 保存截图
-    picture_name1 = local_doc() + '\screenshots/' + str(strtime()) + '.png'
+    picture_name1 = local_doc() + '/screenshots/' + str(strtime()) + '.png'
     driver.save_screenshot(picture_name1)
     ce = driver.find_element_by_id(id)
     # 显示器比例分辨率
@@ -22,7 +22,7 @@ def get_code(driver, id):  # 获取验证码照片
     # 保存验证码图片
     im = Image.open(picture_name1)
     img = im.crop((left, top, right, height))
-    picture_name2 = local_doc() + '\screenshots/' + str(strtime()) + '.png'
+    picture_name2 = local_doc() + '/screenshots/' + str(strtime()) + '.png'
     img.save(picture_name2)
     chaojiying = Chaojiying_Client('shouhuqingtian', '13691959110', '96001')
     im = open(picture_name2, 'rb').read()
@@ -40,11 +40,12 @@ def get_logger():
     logger = logging.getLogger('mylogger')
     logger.setLevel(logging.DEBUG)
 
-    rf_handler = logging.handlers.TimedRotatingFileHandler('all.log', when='midnight', interval=1, backupCount=7,
+    rf_handler = logging.handlers.TimedRotatingFileHandler(local_doc() + '/logs/' + 'all.log', when='midnight',
+                                                           interval=1, backupCount=7,
                                                            atTime=datetime.time(0, 0, 0), encoding='utf-8')
     rf_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
 
-    f_handler = logging.FileHandler('error.log', encoding='utf-8')
+    f_handler = logging.FileHandler(local_doc() + '/logs/' + 'error.log', encoding='utf-8')
     f_handler.setLevel(logging.ERROR)
     f_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(filename)s[:%(lineno)d] - %(message)s'))
 
