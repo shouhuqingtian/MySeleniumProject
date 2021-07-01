@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from util import utils
 import pytest
+from testcases.ddt.test_excel import get_excel_data
 
 
 class TestUserRegister:
@@ -16,14 +17,21 @@ class TestUserRegister:
         self.driver.maximize_window()
         time.sleep(1)
 
+    # login_data = [
+    #     ('test01', 'test01@qq.com', '123456', '123456', '666', '验证码不正确'),
+    #     ('test07', 'test06@qq.com', '123456', '123456', '111', '注册成功，点击确定进行登录')
+    # ]
+
     # 测试登录验证码错误
-    def test_register_code_error(self):
-        username = 'test001'
-        email = 'test001@qq.com'
-        pwd = '123456'
-        confirmPwd = '123456'
-        captcha = '666'
-        expected = '验证码不正确'
+    @pytest.mark.parametrize('username, email, pwd, confirmPwd, captcha, expected', get_excel_data())
+    # @pytest.mark.parametrize('username, email, pwd, confirmPwd, captcha, expected', get_excel_data())
+    def test_register_code_error(self, username, email, pwd, confirmPwd, captcha, expected):
+        # username = 'test001'
+        # email = 'test001@qq.com'
+        # pwd = '123456'
+        # confirmPwd = '123456'
+        # captcha = '666'
+        # expected = '验证码不正确'
 
         self.driver.find_element_by_name('username').send_keys(username)
         self.driver.find_element_by_name('email').send_keys(email)
@@ -40,7 +48,7 @@ class TestUserRegister:
         assert alert.text == expected
         # self.assertEqual(alert.text, expected, '登录验证码断言失败')
         alert.accept()
-        sleep(3)
+        sleep(10)
 
     def test_register_ok(self):
         username = utils.gen_random_str()

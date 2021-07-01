@@ -3,7 +3,7 @@ import csv
 import pytest
 
 
-def get_data():
+def get_csv_data():
     with open('test.csv')as f:
         lst = csv.reader(f)
         data = []
@@ -12,7 +12,7 @@ def get_data():
         return data
 
 
-@pytest.mark.parametrize('name', get_data())
+@pytest.mark.parametrize('name', get_csv_data())
 def test01(name):
     return name
 

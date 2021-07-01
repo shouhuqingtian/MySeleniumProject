@@ -13,7 +13,13 @@ class TestUserLogin:
         self.driver.get('http://159.75.96.188:18080/jpress/user/login')
         self.driver.maximize_window()
 
+    login_data = [
+        ('test01', 'test01@qq.com', '123456', '123456', '666', '验证码不正确'),
+        ('test07', 'test06@qq.com', '123456', '123456', '111', '注册成功，点击确定进行登录')
+    ]
+
     # 测试用户登录，用户名错误
+    @pytest.mark.parametrize('username, ')
     def test_user_login_username_error(self):
         # 用户名为空
         username = ''
