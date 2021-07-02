@@ -22,8 +22,8 @@ class BasePage(object):
 
 class BaiduPage(BasePage):
     def __init__(self, driver):
-        BasePage.__init__(self, driver)
-        driver = webdriver.Firefox()
+        super().__init__(driver)
+        # BasePage.__init__(self, driver)
         driver.get('https://www.baidu.com')
 
     def test_search(self):
@@ -34,6 +34,7 @@ class BaiduPage(BasePage):
 
 
 if __name__ == '__main__':
-    driver = webdriver.Firefox()
-    run = BaiduPage(driver)
+    drive = webdriver.Firefox()
+    run = BaiduPage(drive)
     run.test_search()
+    print(BaiduPage.__bases__)
