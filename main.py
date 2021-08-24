@@ -7,7 +7,6 @@ from testcases.basic.test_article import TestArticle
 if __name__ == '__main__':
     # driver = webdriver.Firefox()
     # driver.get('https://so.gushiwen.cn/user/login.aspx?from=http://so.gushiwen.cn/user/collect.aspx')
-    # driver.maximize_window()
     # print(get_code(driver, 'imgCode'))
     # case = TestUserRegister()
     # case.test_register_code_error()
