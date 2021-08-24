@@ -5,7 +5,6 @@ from testcases.basic.test_admin_login import TestAdminLogin
 from testcases.basic.test_category import TestCategory
 from testcases.basic.test_article import TestArticle
 if __name__ == '__main__':
-    # testcase01.test02()
     # testcase02.test01()
     # driver = webdriver.Firefox()
     # driver.get('https://so.gushiwen.cn/user/login.aspx?from=http://so.gushiwen.cn/user/collect.aspx')
